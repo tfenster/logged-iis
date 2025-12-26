@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: iis
+  labels:
+    app: iis
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: iis
+      labels:
+        app: iis
+    spec:
+      nodeSelector:
+        "kubernetes.io/os": windows
+      containers:
+      - name: iis
+        image: tobiasfenster/logged-iis:nanoserver-ltsc2025
+        resources:
+          limits:
+            cpu: 1
+            memory: 800M
+        ports:
+          - containerPort: 80
+  selector:
+    matchLabels:
+      app: iis
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: iis
+spec:
+  type: LoadBalancer
+  ports:
+  - protocol: TCP
+    port: 80
+    name: http
+  selector:
+    app: iis
