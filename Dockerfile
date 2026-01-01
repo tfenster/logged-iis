@@ -13,5 +13,3 @@ RUN install_iis.cmd
 WORKDIR /LogMonitor
 COPY LogMonitorConfig.json ./
 ENTRYPOINT ["C:\\install\\LogMonitor.exe", "C:\\install\\ServiceMonitor.exe", "W3SVC"]
-#"C:\\install\\ServiceMonitor.exe", "W3SVC"]
-#"ping", "-t", "localhost"]
